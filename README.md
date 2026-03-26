@@ -1,3 +1,5 @@
+[![Tests](https://github.com/elenakuzne/betsson-qa/actions/workflows/tests.yml/badge.svg)](https://github.com/elenakuzne/betsson-qa/actions/workflows/tests.yml)
+
 # qa-backend-code-challenge
 
 Code challenge for QA Backend Engineer candidates.
