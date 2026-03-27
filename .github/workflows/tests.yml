@@ -7,8 +7,8 @@ on:
     branches: [ main ]
 
 jobs:
-  unit-tests:
-    name: Unit Tests
+  tests:
+    name: Tests
     runs-on: ubuntu-latest
     permissions:
       checks: write
@@ -29,12 +29,15 @@ jobs:
         run: dotnet build --no-restore --configuration Release
 
       - name: Run unit tests
-        run: dotnet test tests/Betsson.OnlineWallets.UnitTests/Betsson.OnlineWallets.UnitTests.csproj --no-build --configuration Release --logger "trx;LogFileName=test-results.trx"
+        run: dotnet test tests/Betsson.OnlineWallets.UnitTests/Betsson.OnlineWallets.UnitTests.csproj --no-build --configuration Release --logger "trx;LogFileName=unit-test-results.trx"
+
+      - name: Run integration tests
+        run: dotnet test tests/Betsson.OnlineWallets.Web.IntegrationTests/Betsson.OnlineWallets.Web.IntegrationTests.csproj --no-build --configuration Release --logger "trx;LogFileName=integration-test-results.trx"
 
       - name: Publish test results
         uses: dorny/test-reporter@v1
         if: always()
         with:
-          name: Unit Tests Report
-          path: '**/test-results.trx'
+          name: Test Results
+          path: '**/*test-results.trx'
           reporter: dotnet-trx
